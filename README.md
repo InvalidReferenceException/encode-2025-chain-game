@@ -1,79 +1,68 @@
-![Dojo Starter](./assets/cover.png)
+## 🧠 ENCODE 2025 HACKATHON - On-chain AI Strategy Game
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/mark-dark.svg">
-  <img alt="Dojo logo" align="right" width="120" src=".github/mark-light.svg">
-</picture>
+A modular on-chain strategy game where players move, claim, and rent land tiles on a fully decentralized map — with intelligent AI suggestions and 3D rendering powered by a visual agent system.
 
-<a href="https://x.com/ohayo_dojo">
-<img src="https://img.shields.io/twitter/follow/dojostarknet?style=social"/>
-</a>
-<a href="https://github.com/dojoengine/dojo/stargazers">
-<img src="https://img.shields.io/github/stars/dojoengine/dojo?style=social"/>
-</a>
-
-[![discord](https://img.shields.io/badge/join-dojo-green?logo=discord&logoColor=white)](https://discord.com/invite/dojoengine)
-[![Telegram Chat][tg-badge]][tg-url]
-
-[tg-badge]: https://img.shields.io/endpoint?color=neon&logo=telegram&label=chat&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fdojoengine
-[tg-url]: https://t.me/dojoengine
-
-# Dojo Starter: Official Guide
-
-A quickstart guide to help you build and deploy your first Dojo provable game.
-
-Read the full tutorial [here](https://dojoengine.org/tutorial/dojo-starter).
-
-## Running Locally
-
-#### Terminal one (Make sure this is running)
-
-```bash
-# Run Katana
-katana --dev --dev.no-fee
-```
-
-#### Terminal two
-
-```bash
-# Build the example
-sozo build
-
-# Inspect the world
-sozo inspect
-
-# Migrate the example
-sozo migrate
-
-# Start Torii
-# Replace <WORLD_ADDRESS> with the address of the deployed world from the previous step
-torii --world <WORLD_ADDRESS> --http.cors_origins "*"
-```
-
-## Docker
-You can start stack using docker compose. [Here are the installation instruction](https://docs.docker.com/engine/install/)
-
-```bash
-docker compose up
-```
-You'll get all services logs in the same terminal instance. Whenever you want to stop just ctrl+c
+Built using [Dojo Engine](https://github.com/dojoengine/dojo) (ECS architecture on Starknet), Cairo contracts, and integrated with AI models (LLM, Portia, asset generation) and frontend-ready 3D render pipelines.
 
 ---
 
-## Contribution
+## 🗺️ Game Concept
 
-1. **Report a Bug**
+- The world is divided into **(x, y)** tiles.
+- Players own and **move** across tiles, **capture** unclaimed land, or **rent** from others.
+- AI agent helps make decisions such as:
+  - Best next move
+  - Optimal land to claim/rent
+  - Terrain-based strategy
 
-    - If you think you have encountered a bug, and we should know about it, feel free to report it [here](https://github.com/dojoengine/dojo-starter/issues) and we will take care of it.
+---
 
-2. **Request a Feature**
+## 🔩 Smart Contract Structure (Dojo)
 
-    - You can also request for a feature [here](https://github.com/dojoengine/dojo-starter/issues), and if it's viable, it will be picked for development.
+Deployed on Starknet L2 (powered by StarkWare) with smart contracts written in Cairo.
 
-3. **Create a Pull Request**
-    - It can't get better then this, your pull request will be appreciated by the community.
+| Folder | Purpose |
+|--------|---------|
+| `src/component` | Player, Tile (ownership, stats, wallet, position) |
+| `src/systems-action` | Capture, CreateLand, Rent |
+| `src/system-mapworld` | World map setup / validation |
+| `tests-sample/` | Unit tests for component + systems |
+| `lib.cairo` | Entry point for world logic |
+| `manifest.json` | Dojo world manifest |
 
-Happy coding!
-=======
-# encode-2025-chain-game
-the repo for our onchain game
+---
+
+## 🤖 AI Integration
+
+We use a dedicated Python service (ai_agent/) to:
+
+- 💡 Interpret user text (e.g. “Where should I move?”)
+- 🧠 Call LLMs (Portia AI & Gemini) to reason
+- 🔗 Connect with game state via Cairo bindings
+- 🎙️ Future: voice-to-text prompt / podcast mode
+
+> Output is exposed via an API (`/suggest-move`, `/decision`) and can be consumed by frontend or automated bots.
+
+---
+
+## 🖼️ Visuals & Assets
+
+All tiles may include:
+- 📍 Coordinates (x, y)
+- 🧱 Model type (gltf, obj, etc.)
+- 🌄 Cloud image / texture
+- 📃 Description + category
+- 🧩 Used in 3D scene via Three.js / Unity or WebGL (external frontend)
+
+---
+
+## 🚀 Getting Started
+
+### Run Cairo Locally
+
+```bash
+katana --dev --dev.no-fee
+sozo build
+sozo migrate
+torii --world <WORLD_ADDRESS>
+
