@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ![Dojo Starter](./assets/cover.png)
 
 <picture>
