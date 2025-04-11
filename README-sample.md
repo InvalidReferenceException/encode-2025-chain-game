@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![Dojo Starter](./assets/cover.png)
 
 <picture>
@@ -74,3 +75,7 @@ You'll get all services logs in the same terminal instance. Whenever you want to
     - It can't get better then this, your pull request will be appreciated by the community.
 
 Happy coding!
+=======
+# encode-2025-chain-game
+the repo for our onchain game
+>>>>>>> efe92c1e3f7b2dc5865907cbe01490925cfab450
