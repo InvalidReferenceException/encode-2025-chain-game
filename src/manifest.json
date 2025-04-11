@@ -1,0 +1,15 @@
+{
+    "world": "my_game_world",
+    "models": [
+      "component/player.cairo",
+      "component/tile.cairo"
+    ],
+    "systems": [
+      "system-mapworld/worldmap.cairo",
+      "systems-action/capture.cairo",
+      "systems-action/create-land.cairo",
+      "systems-action/rent.cairo",
+      "systems-map/models.cairo"
+    ]
+  }
+  
