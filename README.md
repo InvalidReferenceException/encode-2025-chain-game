@@ -77,4 +77,3 @@ Happy coding!
 =======
 # encode-2025-chain-game
 the repo for our onchain game
->>>>>>> efe92c1e3f7b2dc5865907cbe01490925cfab450
