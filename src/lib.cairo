@@ -1,11 +1,8 @@
 // entry point of utility of all contract
 
-pub mod systems {
-    pub mod actions;
-}
+pub mod component {
+    pub mod player,
+    pub mod tile;
+},
 
-pub mod models;
-
-pub mod tests {
-    mod test_world;
-}
+pub mod models,

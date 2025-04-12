@@ -3,52 +3,71 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import requests
 import os
 import shutil
 
 app = FastAPI()
 
-# ------------------ CONFIG DATABASE ------------------
-DATABASE_URL = "sqlite:///./glb_files.db"  # SQLite to collect file in  local
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+# ------------------ API ENDPOINT (FastAPI & JSON) x AI integration ------------------
 
-# ------------------ MODEL ------------------
-class GLBModel(Base):
-    __tablename__ = "glb_files"
-    id = Column(Integer, primary_key=True, index=True)
-    filename = Column(String, unique=True, index=True)
-    url = Column(String)
+# AI endpoint 
+AI_endpoint = "https://8da6-193-221-143-82.ngrok-free.app/generate"
 
-Base.metadata.create_all(bind=engine)  # create table in database
+# Pydantic for validation JSON body structure
+# Validate JSON body structure (prompt, tile, neighbours)
+class PromptRequest(BaseModel):
+    prompt: str                 # Description for AI to generate image
+    tile: int                   # Tile ID or coordinate number
+    neighbours: List[int]       # List of surrounding tile IDs
 
-# ------------------ UPLOAD CONFIG ------------------
-UPLOAD_FOLDER = "src/assets/uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# API endpoint 
+@app.post("/generate-ai/")
+async def generate_ai(data: PromptRequest):  # Validate JSON body using PromptRequest model
+    # Convert validated object into dict for POST request
+    response = requests.post(AI_ENDPOINT, json=data.dict())
 
-# Serve static files
-app.mount("/static", StaticFiles(directory="src/assets"), name="static")
+    # Parse JSON response from AI backend
+    result = response.json()
 
-# ------------------ API ENDPOINT ------------------
-@app.post("/upload-glb/")
-async def upload_glb(file: UploadFile = File(...)):
-    # 1. Save file to the upload folder
-    file_location = os.path.join(UPLOAD_FOLDER, file.filename)
-    with open(file_location, "wb") as f:
-        shutil.copyfileobj(file.file, f)
+    # AI image URL to Frontend team - Sample (https://www.notion.so/aglaia-codes/Supabase-1d3c574ec74080fe8f60e43116c99b75?pvs=4)
+    image_url = result.get("url")
 
-    # 2. Generate URL for the uploaded file
-    url = f"/static/uploads/{file.filename}"
+    # Return success and generated image URL back to frontend
+    return {"success": True, "ai_image": image_url}
 
-    # 3. Save filename and url to the database
-    db = SessionLocal()
-    glb_file = GLBModel(filename=file.filename, url=url)
-    db.add(glb_file)
-    db.commit()
-    db.refresh(glb_file)
-    db.close()
+# ------------------ API ENDPOINT (FastAPI) x Frontend integration - GET Tiles from Starknet (via RPC)  ------------------
+@app.get("/tiles")
+def get_all_tiles():
+    """
+    This endpoint simulates pulling tile data from Starknet via Torii RPC.
+    Later this will be replaced with actual on-chain calls.
+    """
+    tiles = [
+        {
+            "x": 3,
+            "y": 7,
+            "img_url": "https://supabase.com/encode-assets/tile_3_7.png",
+            "model_url": "https://supabase.com/encode-assets/tile_3_7.glb",
+            "description": "tree",
+            "tile_type": "normal"
+        },
+        {
+            "x": 4,
+            "y": 8,
+            "img_url": "https://supabase.com/encode-assets/tile_4_8.png",
+            "model_url": "https://supabase.com/encode-assets/tile_4_8.glb",
+            "description": "house",
+            "tile_type": "normal"
+        }
+    ]
 
-    # 4. Return JSON response
-    return {"filename": file.filename, "url": url}
+    return {"tiles": tiles}
+
+
+
+
+
+
+

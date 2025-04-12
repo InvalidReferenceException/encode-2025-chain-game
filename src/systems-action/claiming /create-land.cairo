@@ -1,8 +1,16 @@
 #[system]
 fn craft_tile(player: Player, x: u32, y: u32, tile_type: felt252) {
     // Check if tile already exists at this coordinate
-    if world.get::<Tile>((x, y)).is_some() {
-        return; // Tile already created — prevent overwrite
+    let existing_tile_opt = world.get::<Tile>((x, y));
+
+    match existing_tile_opt {
+        Option::Some(_) => {
+            // Tile already exists at (x, y)
+            return;
+        },
+        Option::None => {
+            // Continue to create tile
+        }
     }
 
     // Define the resource cost (can change based on tile type)
@@ -10,25 +18,28 @@ fn craft_tile(player: Player, x: u32, y: u32, tile_type: felt252) {
 
     // Check if player has enough balance
     if player.wallet_balance < required_resources {
-        return; // Not enough resources to craft
+        return;
     }
 
     // Deduct resources from player wallet (you must write this change to storage)
     let new_balance = player.wallet_balance - required_resources;
+
     world.set::<Player>(player.address, Player {
         wallet_balance: new_balance,
         ..player
     });
 
-    // 5. Create the new tile and store it in the world
+    // Create the new tile at this x,y location
     world.set::<Tile>((x, y), Tile {
         x,
         y,
         owner: Some(player.address),
         tile_type,
         cost_to_rent: 10,
-        img_url: 0,      // *TO DO: Replace with actual image ID or reference
-        model_url: 0,    // *TO DO: Replace with model data
+
+        // populate these through update or API call in Frontend
+        img_url: 0,
+        model_url: 0,
         texture: 0,
         description: 0,
         model_type: 0,
