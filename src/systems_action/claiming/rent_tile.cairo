@@ -1,4 +1,4 @@
-// ✅ Updated system: rent_tile.cairo
+
 #[starknet::interface]
 trait IRentTile<T> {
     fn rent(self: @T, tile_id: u64);
