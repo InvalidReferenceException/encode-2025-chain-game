@@ -8,16 +8,18 @@ edition = "2024_07"
 sierra-replace-ids = true
 
 [scripts]
-migrate = "sozo build && sozo migrate"                      # scarb run migrate
-spawn = "sozo execute dojo_starter-actions spawn --wait"    # scarb run spawn
-move = "sozo execute dojo_starter-actions move -c 1 --wait" # scarb run move
+migrate = "sozo build && sozo migrate"
+spawn = "sozo execute dojo_starter-systems_action-claiming-capture_tile::capture --wait"
+craft = "sozo execute dojo_starter-systems_action-claiming-craft_tile::craft --wait"
+rent = "sozo execute dojo_starter-systems_action-claiming-rent_tile::collect_rent --wait"
 
 [dependencies]
 dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.4.0" }
 
-[[target.starknet-contract]]
-build-external-contracts = ["dojo::world::world_contract::world"]
 
-[dev-dependencies]
-cairo_test = "=2.9.4"
-dojo_cairo_test = { git = "https://github.com/dojoengine/dojo", tag = "v1.4.0" }
+[[target.starknet-contract]]
+build-external-contracts = [
+  "dojo_starter::systems_action::claiming::capture_tile",
+  "dojo_starter::systems_action::claiming::craft_tile",
+  "dojo_starter::systems_action::claiming::rent_tile"
+]
