@@ -1,6 +1,6 @@
 use starknet::ContractAddress;
 
-// Constants for tile types
+// Constants for tile typess
 pub const TILE_TYPE_NORMAL: u8 = 0;
 pub const TILE_TYPE_VOID: u8 = 1;
 

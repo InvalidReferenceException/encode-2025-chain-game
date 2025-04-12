@@ -1,4 +1,5 @@
 use starknet::ContractAddress;
+//
 
 #[derive(Copy, Drop, Serde)]
 #[dojo::model]
