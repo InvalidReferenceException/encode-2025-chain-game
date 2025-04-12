@@ -1,20 +1,25 @@
+#[derive(Copy, Drop)]
+enum TileType {
+    Normal = 0,
+    Void = 1,
+}
+
 #[component]
-struct tile {
+struct Tile {
     #[key]
-    x: u32,                          // X-coordinate of the tile
+    x: u32,
     #[key]
-    y: u32,                          // Y-coordinate of the tile
+    y: u32,
 
-    owner: Option<ContractAddress>,  // Address of the tile's owner
-    tile_type: felt252,              // Type of tile: e.g., normal, void
-    cost_to_rent: u64,               // Token cost to rent or move through the tile
+    owner: Option<ContractAddress>, // Owner or null for unclaimed tiles
+    tile_type: TileType,            // Normal / Void
 
-    rented: bool,                    // Indicates whether the tile is currently being rented
+    cost_to_rent: u64,              // If Normal tile
 
-    img_url: felt252,                // Cloud image asset (for AI or preview)
-    model_url: felt252,              // Cloud 3D model asset (for rendering)
-    texture: felt252,                // Texture or material name
-    description: felt252,            // Textual description or category
+    // Asset links (Frontend sends this via API)
+    img_url: felt252,               // Cloud image texture URL
+    model_url: felt252,             // 3D model (GLTF/GLB) URL
+    description: felt252,           // Short name: "grass", "tree", "house"
     model_type: felt252,             // Model type or format (e.g., glb/gltf)
     material: felt252,               // Material data or name
 }
