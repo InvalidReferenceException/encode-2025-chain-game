@@ -1,7 +1,9 @@
 # Genesis Void
 **On-chain AI sandbox game with AI-Powered Morphing for 3D Assets**
+
 ## Project Name: Genesis Void
 This repository contains the **frontend UI** for Genesis Void — a dynamic, on-chain AI sandbox game built on **Starkware’s Dojo engine**, visualized with **three.js** for immersive 3D interactions.
+
 ---
 ## What We’re Building!
 
