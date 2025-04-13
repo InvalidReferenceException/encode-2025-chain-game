@@ -1,76 +1,42 @@
-![Dojo Starter](./assets/cover.png)
+# Genesis Void
+**On-chain AI sandbox game with AI-Powered Morphing for 3D Assets**
+## Project Name: Genesis Void
+This repository contains the **frontend UI** for Genesis Void — a dynamic, on-chain AI sandbox game built on **Starkware’s Dojo engine**, visualized with **three.js** for immersive 3D interactions.
+---
+## What We’re Building!
+Genesis Void is an on-chain AI sandbox where players carve reality out of the void — one step at a time. The world begins as a blank slate, but with the help of **Steve**, your intelligent AI companion powered by **Portia AI** and integrated with GPT, Gemini and Stability-based LLMs, you can shape it with your words.
+Say “build a blue castle” and Steve will generate 3D assets in real time, morphing structures into existence. This AI-driven morphing engine interprets not just geometry, but **style**, **structure**, and **semantic intent** — enabling expressive, dynamic transformations.
+On the backend, we use **Cairo 1.0** and **Dojo** to store all gameplay data on-chain: land ownership, inventories, structures, and player states. Players can **buy** tiles using the in-game currency **Quark**, **rent** land, or **capture** it via strategic play. For example, surrounding a 3x3 area with your owned tiles allows you to claim the center — combining world-building with tactical decision-making. Think *Minecraft meets chess*, running entirely on the blockchain.
+---
+## Morphing Pipeline
+Genesis Void introduces a next-gen procedural morphing system that:
+- Understands **style** and**structure** between asset inputs.
+- Generates **intermediate 3D models** in response to prompts.
+- Leverages **text input** to drive transformations (such as buy, rent or capture).
+---
+## Sponsor Technologies Used
+### Starkware / Starknet
+- On-chain game logic is implemented in **Cairo** using the **Dojo engine**, supporting fully verifiable state transitions.
+- The world runs entirely on **Starknet**, where all gameplay actions, asset updates, and tile transactions are recorded.
+- Tools used: **Cairo 1.0**, **Dojo**, **Katana**, **Starknet.js**
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/mark-dark.svg">
-  <img alt="Dojo logo" align="right" width="120" src=".github/mark-light.svg">
-</picture>
+###  Portia.AI
+- **Portia AI SDK** enables Steve to act as a controlled, intelligent agent:
+  - Generates intermediate steps during morphing.
+  - Requests human confirmation under specific uncertainty thresholds.
+  - Makes Steve adaptable and context-aware, with human-in-the-loop support when needed.
 
-<a href="https://x.com/ohayo_dojo">
-<img src="https://img.shields.io/twitter/follow/dojostarknet?style=social"/>
-</a>
-<a href="https://github.com/dojoengine/dojo/stargazers">
-<img src="https://img.shields.io/github/stars/dojoengine/dojo?style=social"/>
-</a>
-
-[![discord](https://img.shields.io/badge/join-dojo-green?logo=discord&logoColor=white)](https://discord.com/invite/dojoengine)
-[![Telegram Chat][tg-badge]][tg-url]
-
-[tg-badge]: https://img.shields.io/endpoint?color=neon&logo=telegram&label=chat&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fdojoengine
-[tg-url]: https://t.me/dojoengine
-
-# Dojo Starter: Official Guide
-
-A quickstart guide to help you build and deploy your first Dojo provable game.
-
-Read the full tutorial [here](https://dojoengine.org/tutorial/dojo-starter).
-
-## Running Locally
-
-#### Terminal one (Make sure this is running)
-
-```bash
-# Run Katana
-katana --dev --dev.no-fee
-```
-
-#### Terminal two
-
-```bash
-# Build the example
-sozo build
-
-# Inspect the world
-sozo inspect
-
-# Migrate the example
-sozo migrate
-
-# Start Torii
-# Replace <WORLD_ADDRESS> with the address of the deployed world from the previous step
-torii --world <WORLD_ADDRESS> --http.cors_origins "*"
-```
-
-## Docker
-You can start stack using docker compose. [Here are the installation instruction](https://docs.docker.com/engine/install/)
-
-```bash
-docker compose up
-```
-You'll get all services logs in the same terminal instance. Whenever you want to stop just ctrl+c
-
+###  Nethermind
+-  We leverage **Nethermind** as the RPC backbone for Starknet communication and align with their **Agentic Future** vision:
+  - Steve operates as a compact, autonomous agent with meaningful blockchain interaction.
+  - Uses **on-chain smart contracts** to track land capture, resource usage, and morphing logic.
+  - Ensures reliable, efficient access to the Starknet network and supports agentic execution at scale.
 ---
 
-## Contribution
-
-1. **Report a Bug**
-
-    - If you think you have encountered a bug, and we should know about it, feel free to report it [here](https://github.com/dojoengine/dojo-starter/issues) and we will take care of it.
-
-2. **Request a Feature**
-
-    - You can also request for a feature [here](https://github.com/dojoengine/dojo-starter/issues), and if it's viable, it will be picked for development.
-
-3. **Create a Pull Request**
-    - It can't get better then this, your pull request will be appreciated by the community.
-
-Happy coding!
+## Tech Stack
+- **Frontend**: React, three.js
+- **Onchain**: Dojo, Cairo 1.0, Starknet
+- **AI Layer**: Python, Portia SDK, Prompt-to-Asset Morph Engine
+- **Database**: Supabase
+- **Asset Format**: glTF / glb / PNG
+---
