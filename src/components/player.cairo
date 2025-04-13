@@ -8,5 +8,6 @@ pub struct Player {
     pub tokens_balance: u128,
     pub total_rent_earned: u128,
     pub position_x: u32,
-    pub position_y: u32
+    pub position_y: u32,
+    pub tiles_owned: u32,
 }

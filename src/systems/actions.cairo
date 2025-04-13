@@ -3,6 +3,8 @@ use dojo_starter::components::player::Player;
 use dojo_starter::components::tile::{Tile, TILE_TYPE_NORMAL, TILE_TYPE_VOID};
 use dojo_starter::components::rent::{TileRentInfo, RentPaid};
 use starknet::{ContractAddress, get_block_timestamp};
+use dojo::event::EventStorage;
+
 
 // Define the interface
 #[starknet::interface]
@@ -12,7 +14,7 @@ pub trait IActions<T> {
     fn move_player(ref self: T, x: u32, y: u32);
     fn create_void_tile(ref self: T, x: u32, y: u32, acquisition_cost: u128);
     fn acquire_void_tile(ref self: T, x: u32, y: u32) -> bool;
-    fn craft_void_to_normal(ref self: T, x: u32, y: u32, description: felt252, asset_url: felt252);
+    fn craft_void_to_normal(ref self: T, x: u32, y: u32, description: felt252, asset_url: felt252, is_captured: bool);
 
     // Tile management
     fn create_normal_tile(ref self: T, x: u32, y: u32, rent_cost: u128);
@@ -95,7 +97,8 @@ pub mod actions {
                 tokens_balance: 1000,
                 total_rent_earned: 0,
                 position_x: 0,
-                position_y: 0
+                position_y: 0, 
+                tiles_owned: 0,
             };
 
             world.write_model(@new_player);
@@ -145,6 +148,9 @@ pub mod actions {
                 owner: player,
                 tile_type: TILE_TYPE_NORMAL,
                 rent_cost: DEFAULT_RENT_COST,
+                description: 'Default description',
+                asset_url: 'ipfs://default',
+                is_captured: false,
             };
 
             let rent_info = TileRentInfo {
@@ -169,6 +175,9 @@ pub mod actions {
                 owner: starknet::contract_address_const::<0>(),
                 tile_type: TILE_TYPE_VOID,
                 rent_cost: acquisition_cost,
+                description: 'Void tile'.into(), 
+                asset_url: 'ipfs://placeholder'.into(),
+                is_captured: false,
             };
 
             world.write_model(@void_tile);
@@ -217,7 +226,7 @@ pub mod actions {
             true
         }
 
-        fn craft_void_to_normal(ref self: ContractState, x: u32, y: u32, description: felt252, asset_url: felt252) {
+        fn craft_void_to_normal(ref self: ContractState, x: u32, y: u32, description: felt252, asset_url: felt252, is_captured: bool) {
             let mut world = self.world_default();
             let player = get_caller_address();
 
@@ -236,6 +245,9 @@ pub mod actions {
                 owner: player,
                 tile_type: TILE_TYPE_NORMAL,
                 rent_cost: 5,
+                description,
+                asset_url,
+                is_captured,
             };
 
             let rent_info = TileRentInfo {

@@ -13,5 +13,8 @@ pub struct Tile {
     pub y: u32,
     pub owner: ContractAddress,
     pub tile_type: u8,
-    pub rent_cost: u128
+    pub rent_cost: u128,
+    pub description: felt252,
+    pub asset_url: felt252,
+    pub is_captured: bool,
 }
