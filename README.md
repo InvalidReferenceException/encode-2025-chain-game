@@ -4,9 +4,11 @@
 This repository contains the **frontend UI** for Genesis Void — a dynamic, on-chain AI sandbox game built on **Starkware’s Dojo engine**, visualized with **three.js** for immersive 3D interactions.
 ---
 ## What We’re Building!
+
 Genesis Void is an on-chain AI sandbox where players carve reality out of the void — one step at a time. The world begins as a blank slate, but with the help of **Steve**, your intelligent AI companion powered by **Portia AI** and integrated with GPT, Gemini and Stability-based LLMs, you can shape it with your words.
 Say “build a blue castle” and Steve will generate 3D assets in real time, morphing structures into existence. This AI-driven morphing engine interprets not just geometry, but **style**, **structure**, and **semantic intent** — enabling expressive, dynamic transformations.
 On the backend, we use **Cairo 1.0** and **Dojo** to store all gameplay data on-chain: land ownership, inventories, structures, and player states. Players can **buy** tiles using the in-game currency **Quark**, **rent** land, or **capture** it via strategic play. For example, surrounding a 3x3 area with your owned tiles allows you to claim the center — combining world-building with tactical decision-making. Think *Minecraft meets chess*, running entirely on the blockchain.
+
 ---
 ## Morphing Pipeline
 Genesis Void introduces a next-gen procedural morphing system that:
