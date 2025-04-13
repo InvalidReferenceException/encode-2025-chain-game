@@ -1,7 +1,7 @@
 {
   "world": {
-    "class_hash": "0x75fc75bcd1a7f8b4bf64b74978b0f89c8cee44bb755c1dae6f82284756451ec",
-    "address": "0x193e3437b867035092ddd89f1c09281e51e2d21692457d6e8e65f680ee05fe8",
+    "class_hash": "0x7c9469d45a9cdbab775035afb48e1fa73fb35ab059fcb9dfb0a301aa973e783",
+    "address": "0x65ee8188c171a836294feaa931f1c78b5f18957791c039e84ee40b4b3e85d3e",
     "seed": "dojo_starter",
     "name": "Dojo starter",
     "entrypoints": [
@@ -1312,8 +1312,8 @@
   },
   "contracts": [
     {
-      "address": "0x10294da2caf00495dc0f4e0a746fec178efee88f01bcab097db1a1d17036290",
-      "class_hash": "0x234371125ee3c22acfbb5b13fae70504784b027c760dc37bc7765b9f7b72e80",
+      "address": "0x62f6a8b1bc8f4b45985eaff3b00f85f370d6eb8dcb038072f3bf34fba0dd855",
+      "class_hash": "0x7e929027a6456c78b98bd4b54a4ab5db0058fae29e5c3a35d87aae49655236",
       "abi": [
         {
           "type": "impl",
@@ -1372,14 +1372,22 @@
         },
         {
           "type": "enum",
-          "name": "core::bool",
+          "name": "dojo_starter::models::Direction",
           "variants": [
             {
-              "name": "False",
+              "name": "Left",
               "type": "()"
             },
             {
-              "name": "True",
+              "name": "Right",
+              "type": "()"
+            },
+            {
+              "name": "Up",
+              "type": "()"
+            },
+            {
+              "name": "Down",
               "type": "()"
             }
           ]
@@ -1390,94 +1398,18 @@
           "items": [
             {
               "type": "function",
-              "name": "spawn_player",
+              "name": "spawn",
               "inputs": [],
               "outputs": [],
               "state_mutability": "external"
             },
             {
               "type": "function",
-              "name": "move_player",
+              "name": "move",
               "inputs": [
                 {
-                  "name": "x",
-                  "type": "core::integer::u32"
-                },
-                {
-                  "name": "y",
-                  "type": "core::integer::u32"
-                }
-              ],
-              "outputs": [],
-              "state_mutability": "external"
-            },
-            {
-              "type": "function",
-              "name": "create_normal_tile",
-              "inputs": [
-                {
-                  "name": "x",
-                  "type": "core::integer::u32"
-                },
-                {
-                  "name": "y",
-                  "type": "core::integer::u32"
-                },
-                {
-                  "name": "rent_cost",
-                  "type": "core::integer::u128"
-                }
-              ],
-              "outputs": [],
-              "state_mutability": "external"
-            },
-            {
-              "type": "function",
-              "name": "collect_rent",
-              "inputs": [
-                {
-                  "name": "x",
-                  "type": "core::integer::u32"
-                },
-                {
-                  "name": "y",
-                  "type": "core::integer::u32"
-                }
-              ],
-              "outputs": [],
-              "state_mutability": "external"
-            },
-            {
-              "type": "function",
-              "name": "check_captured_area",
-              "inputs": [
-                {
-                  "name": "center_x",
-                  "type": "core::integer::u32"
-                },
-                {
-                  "name": "center_y",
-                  "type": "core::integer::u32"
-                }
-              ],
-              "outputs": [
-                {
-                  "type": "core::bool"
-                }
-              ],
-              "state_mutability": "external"
-            },
-            {
-              "type": "function",
-              "name": "capture_tile_if_surrounded",
-              "inputs": [
-                {
-                  "name": "center_x",
-                  "type": "core::integer::u32"
-                },
-                {
-                  "name": "center_y",
-                  "type": "core::integer::u32"
+                  "name": "direction",
+                  "type": "dojo_starter::models::Direction"
                 }
               ],
               "outputs": [],
@@ -1604,12 +1536,8 @@
       "tag": "dojo_starter-actions",
       "selector": "0x7a1c71029f2d0b38e3ac89b09931d08b6e48417e079c289ff19a8698d0cba33",
       "systems": [
-        "spawn_player",
-        "move_player",
-        "create_normal_tile",
-        "collect_rent",
-        "check_captured_area",
-        "capture_tile_if_surrounded",
+        "spawn",
+        "move",
         "upgrade"
       ]
     }
@@ -1618,65 +1546,29 @@
   "models": [
     {
       "members": [],
-      "class_hash": "0x6df6b08f853630d7d004d4bdcab97500d00e8e9379a3f470020a308e10b316d",
+      "class_hash": "0x5dee089cbc4c8e6b4dbb08ee91ca9e275c5f5bb0be158ebae60ecd3b06989dd",
       "tag": "dojo_starter-DirectionsAvailable",
       "selector": "0x77844f1facb51e60e546a9832d56c6bd04fa23be4fd5b57290caae5e9a3c1e4"
     },
     {
       "members": [],
-      "class_hash": "0x7ceace45e11749b25ff5490b58213e28a1a9d4ce046a9a13be551c7fad1453d",
-      "tag": "dojo_starter-InventoryCounter",
-      "selector": "0x51171c634dcf837e0482c08bd41587d7cfd55b07409636ac675b657192bf9a9"
-    },
-    {
-      "members": [],
-      "class_hash": "0x4959e1954b79aaf8a51495cd28e89c6d99cf20694f5f2470d6be927ba1d113a",
-      "tag": "dojo_starter-InventoryItem",
-      "selector": "0x4b404fdfeffad082b1e64267a972269f4daf0dbd5ebbeaf06ddc13964021da3"
-    },
-    {
-      "members": [],
-      "class_hash": "0x38e2e6d26249edf90f8e7c7ca709e72e73940c5ff28de462201b439a0b9bc91",
+      "class_hash": "0x1a3faf9f018c2d792f06a9b52bd0b01b78bd652cb2dafbb3869f12814f0825b",
       "tag": "dojo_starter-Moves",
       "selector": "0x2a29373f1af8348bd366a990eb3a342ef2cbe5e85160539eaca3441a673f468"
     },
     {
       "members": [],
-      "class_hash": "0x6e92e03d26a040a60d0be9ee0a9c49a303099cfcd81e26cd87397f457a2d370",
-      "tag": "dojo_starter-Player",
-      "selector": "0x1cccb05d982525914bcdce99f0af51556dcb8d9f0e2317c0ad0221d13a809f9"
-    },
-    {
-      "members": [],
-      "class_hash": "0x4ed21f0985c48c9e2f229060f12b62f9775b58292e3271657cb0993aaa0c8fa",
-      "tag": "dojo_starter-PlayerTile",
-      "selector": "0x3914086203458dc3114806abce562cfd4867a670b7920348372b089d9bc1c00"
-    },
-    {
-      "members": [],
-      "class_hash": "0x7e6d3bbf826b47545bfb43c297de529172d642297b7c2bb7ebb98c9020b2ed4",
+      "class_hash": "0x6dd8181e9e5a571c80803ab2adde6141f030decdef460106d757aa083f26a70",
       "tag": "dojo_starter-Position",
       "selector": "0x2ac8b4c190f7031b9fc44312e6b047a1dce0b3f2957c33a935ca7846a46dd5b"
-    },
-    {
-      "members": [],
-      "class_hash": "0x2224aa59c4373be178f48f61591fca2139509ce28ffb1913cade0bd8d4bb1d7",
-      "tag": "dojo_starter-Tile",
-      "selector": "0x269db396285c14be3b7c7c5c69282444a6c8a97348b9346131c75076f4fbcf3"
-    },
-    {
-      "members": [],
-      "class_hash": "0x10bdf0a9f48ccba48d4d7006f1e763e448121da6062b06c333842ccf4145fda",
-      "tag": "dojo_starter-TileRentInfo",
-      "selector": "0x2957f16326683d13c7aa8004ae50c632b25c0255811400ad9d2b9235c8a0980"
     }
   ],
   "events": [
     {
       "members": [],
-      "class_hash": "0x175285c66d0720c74f8485425018ad68dd3eb64511be705563139ededff7747",
-      "tag": "dojo_starter-RentPaid",
-      "selector": "0x6f428cf42af4be6329f8de58b74ae51a34e2a64544dcb24c6d4ed3377d0ac5d"
+      "class_hash": "0xe7390da745519ad5484c14f6c32caef28e53ed496e78c086a0689bb2007112",
+      "tag": "dojo_starter-Moved",
+      "selector": "0x504403e5c02b6442527721fc464d9ea5fc8f1ee600ab5ccd5c0845d36fd45f1"
     }
   ],
   "external_contracts": []
